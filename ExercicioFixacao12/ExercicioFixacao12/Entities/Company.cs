@@ -11,17 +11,7 @@
 
         public override double Tax()
         {
-            double tax;
-
-            if(NumberOfEmployees > 10)
-            {
-                tax = AnualIncome * 0.14;
-            }
-            else
-            {
-                tax = AnualIncome * 0.16;
-            }
-
+            double tax = (NumberOfEmployees > 10) ? AnualIncome * 0.14 : AnualIncome * 0.16;
             return tax;
         }
     }
