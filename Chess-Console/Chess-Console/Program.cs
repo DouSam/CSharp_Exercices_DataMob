@@ -7,10 +7,7 @@ namespace Chess_Console
     {
         static void Main(string[] args)
         {
-            Position p;
-
-            p = new Position(3,4);
-
+            Board.Board board = new Board.Board(8,8); 
         }
     }
 }
