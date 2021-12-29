@@ -6,8 +6,8 @@ namespace Chess
     class Game
     {
         public Board.Board Board { get; private set; }
-        private int Turn;
-        private Color ActualPlayer;
+        public int Turn { get; private set; }
+        public Color ActualPlayer { get; private set; }
         public bool Finished { get; private set; }
 
         public Game()
@@ -25,6 +25,42 @@ namespace Chess
             piece.IncreaseMovement();
             Piece pieceCaptured = Board.RemovePiece(destiny);
             Board.PlacePiece(piece, destiny);
+        }
+
+        public void MakeMoviment(Position origin, Position destiny)
+        {
+            Moviment(origin, destiny);
+            Turn++;
+            ChangePlayer();
+        }
+
+        public void ValidateOriginPosition(Position origin)
+        {
+            Piece piece = Board.GetPiece(origin);
+            if (piece == null)
+            {
+                throw new BoardException("Doesn't exist a piece in the selected position.");
+            }
+            if(ActualPlayer != piece.Color)
+            {
+                throw new BoardException("This piece is not yours!");
+            }
+            if (!piece.ExistsMoviments())
+            {
+                throw new BoardException("This piece doesn't have movements to do.");
+            }
+        }
+
+        public void ValidateDestinyPosition(Position origin, Position destiny)
+        {
+            if (!Board.GetPiece(origin).CanMoveToDestiny(destiny))
+            {
+                throw new BoardException("Destiny position invalid.");
+            }
+        }
+        private void ChangePlayer()
+        {
+            ActualPlayer = ActualPlayer == Color.White ? Color.Black : Color.White;
         }
 
         private void placePieces()

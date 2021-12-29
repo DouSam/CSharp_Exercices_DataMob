@@ -64,7 +64,7 @@ namespace Chess_Console
             }
             else
             {
-                if (piece.Color == Color.Black)
+                if (piece.Color == Color.White)
                 {
                     Console.Write(piece);
                 }
