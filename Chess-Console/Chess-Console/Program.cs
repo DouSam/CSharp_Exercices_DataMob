@@ -10,14 +10,32 @@ namespace Chess_Console
         {
             try
             {
+                Game game = new Game();
 
-                Board.Board bo = new Board.Board(8,8);
+                while (!game.Finished)
+                {
 
-                bo.PlacePiece(new King(Color.White,bo),new Position(1,0));
+                    Console.Clear();
+                    Screen.PrintBoard(game.Board);
 
-                Screen.PrintBoard(bo);
+                    Console.WriteLine();
+                    Console.Write("Origin: ");
+                    Position origin = Screen.ReadPositionChess().toPosition();
+
+                    bool[,] possiblePositions = game.Board.GetPiece(origin).PossibleMoviments();
+
+                    Console.Clear();
+                    Screen.PrintBoard(game.Board, possiblePositions);
+
+                    Console.WriteLine();
+                    Console.Write("Destiny: ");
+                    Position destiny = Screen.ReadPositionChess().toPosition();
+
+                    game.Moviment(origin,destiny);
+                }
+
             }
-            catch(BoardException e)
+            catch (BoardException e)
             {
                 Console.WriteLine(e.Message);
             }

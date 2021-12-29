@@ -62,5 +62,18 @@ namespace Board
                 throw new BoardException("Invalid position.");
             }
         }
+
+        public Piece RemovePiece(Position position)
+        {
+            if (GetPiece(position) == null)
+            {
+                return null;
+            }
+
+            Piece aux = GetPiece(position);
+            aux.Position = null;
+            _pieces[position.Line, position.Column] = null;
+            return aux;
+        }
     }
 }

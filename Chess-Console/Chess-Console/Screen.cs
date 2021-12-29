@@ -1,5 +1,6 @@
 ﻿using System;
 using Board;
+using Chess;
 
 namespace Chess_Console
 {
@@ -12,34 +13,69 @@ namespace Chess_Console
                 Console.Write(8 - i + " ");
                 for (int j = 0; j < board.Columns; j++)
                 {
-                    if (board.GetPiece(i, j) == null)
-                    {
-                        Console.Write("_ ");
-                    }
-                    else
-                    {
-                        PrintPiece(board.GetPiece(i, j));
-                        Console.Write(" ");
-                    }
+                    PrintPiece(board.GetPiece(i, j));
                 }
                 Console.WriteLine();
             }
-
             Console.WriteLine($"  a b c d e f g h");
+        }
+
+        public static void PrintBoard(Board.Board board, bool[,] possiblePositions)
+        {
+
+            ConsoleColor OriginalBackground = Console.BackgroundColor;
+            ConsoleColor GrayBackground = ConsoleColor.DarkGray;
+
+            for (int i = 0; i < board.Lines; i++)
+            {
+                Console.Write(8 - i + " ");
+                for (int j = 0; j < board.Columns; j++)
+                {
+                    if (possiblePositions[i, j])
+                    {
+                        Console.BackgroundColor = GrayBackground;
+                    }
+                    else
+                    {
+                        Console.BackgroundColor = OriginalBackground;
+                    }
+                    PrintPiece(board.GetPiece(i, j));
+                    Console.BackgroundColor = OriginalBackground;
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("  a b c d e f g h");
+            Console.BackgroundColor = OriginalBackground;
+        }
+
+        public static PositionChess ReadPositionChess()
+        {
+            string s = Console.ReadLine();
+            char coluna = s[0];
+            int linha = int.Parse(s[1] + "");
+            return new PositionChess(coluna, linha);
         }
 
         public static void PrintPiece(Piece piece)
         {
-            if(piece.Color == Color.Black)
+            if(piece == null)
             {
-                Console.Write(piece);
+                Console.Write("- ");
             }
             else
             {
-                ConsoleColor aux = Console.ForegroundColor;
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write(piece);
-                Console.ForegroundColor = aux;
+                if (piece.Color == Color.Black)
+                {
+                    Console.Write(piece);
+                }
+                else
+                {
+                    ConsoleColor aux = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write(piece);
+                    Console.ForegroundColor = aux;
+                }
+                Console.Write(" ");
             }
         }
     }
