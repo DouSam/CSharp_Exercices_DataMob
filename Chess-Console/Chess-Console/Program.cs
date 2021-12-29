@@ -11,11 +11,11 @@ namespace Chess_Console
             try
             {
 
-                PositionChess pos = new PositionChess('a', 1);
+                Board.Board bo = new Board.Board(8,8);
 
-                Console.WriteLine(pos);
+                bo.PlacePiece(new King(Color.White,bo),new Position(1,0));
 
-                Console.WriteLine(pos.toPosition());
+                Screen.PrintBoard(bo);
             }
             catch(BoardException e)
             {
