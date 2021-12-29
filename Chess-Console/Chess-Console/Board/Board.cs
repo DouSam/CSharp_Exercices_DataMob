@@ -8,13 +8,24 @@ namespace Board
     {
         public int Lines { get; set; }
         public int Columns { get; set; }
-        private Piece[,] pieces;
+        private Piece[,] _pieces;
 
         public Board(int lines, int columns)
         {
             Lines = lines;
             Columns = columns;
-            pieces = new Piece[lines,columns];
+            _pieces = new Piece[lines, columns];
+        }
+
+        public Piece GetPiece(int line, int column)
+        {
+            return _pieces[line, column];
+        }
+
+        public void PlacePiece(Piece piece, Position position)
+        {
+            _pieces[position.Line, position.Column] = piece;
+            piece.Position = position;
         }
     }
 }
