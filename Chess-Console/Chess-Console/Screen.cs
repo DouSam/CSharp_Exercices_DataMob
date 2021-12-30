@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Board;
 using Chess;
 
@@ -6,6 +7,51 @@ namespace Chess_Console
 {
     class Screen
     {
+        public static void PrintMatch(Game match)
+        {
+            PrintBoard(match.Board);
+            Console.WriteLine();
+            PrintCapturedPieces(match);
+            Console.WriteLine();
+            Console.WriteLine("Turn: " + match.Turn);
+            if (!match.Finished)
+            {
+                Console.WriteLine("Waiting player: " + match.ActualPlayer);
+                if (match.Checkmate)
+                {
+                    Console.WriteLine("CHECK!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("CHECKMATE!");
+                Console.WriteLine("WINNER!!: " + match.ActualPlayer);
+            }
+        }
+
+        public static void PrintCapturedPieces(Game match)
+        {
+            Console.WriteLine("Captured pieces:");
+            Console.Write("White: ");
+            PrintSet(match.GetCapturedPieces(Color.White));
+            Console.WriteLine();
+            Console.Write("Black: ");
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            PrintSet(match.GetCapturedPieces(Color.Black));
+            Console.ForegroundColor = aux;
+            Console.WriteLine();
+        }
+
+        public static void PrintSet(HashSet<Piece> set)
+        {
+            Console.Write("[");
+            foreach (Piece piece in set)
+            {
+                Console.Write(piece + " ");
+            }
+            Console.Write("]");
+        }
         public static void PrintBoard(Board.Board board)
         {
             for (int i = 0; i < board.Lines; i++)
@@ -44,7 +90,7 @@ namespace Chess_Console
                 }
                 Console.WriteLine();
             }
-            Console.WriteLine("  a b c d e f g h");
+            Console.WriteLine("\n  a b c d e f g h");
             Console.BackgroundColor = OriginalBackground;
         }
 

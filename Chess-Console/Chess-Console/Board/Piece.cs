@@ -19,6 +19,11 @@
             MovementCount++;
         }
 
+        public void DecreaseMovement()
+        {
+            MovementCount--;
+        }
+
         public abstract bool[,] PossibleMoviments();
 
         public bool ExistsMoviments()

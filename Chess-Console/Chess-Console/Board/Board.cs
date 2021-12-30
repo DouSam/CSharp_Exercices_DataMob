@@ -19,13 +19,11 @@ namespace Board
 
         public Piece GetPiece(int line, int column)
         {
-            PositionVerify(new Position(line,column));
             return _pieces[line, column];
         }
 
         public Piece GetPiece(Position position)
         {
-            PositionVerify(position);
             return _pieces[position.Line, position.Column];
         }
 

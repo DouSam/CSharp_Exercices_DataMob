@@ -17,9 +17,7 @@ namespace Chess_Console
                     try
                     {
                         Console.Clear();
-                        Screen.PrintBoard(game.Board);
-                        Console.WriteLine($"Turn: {game.Turn}");
-                        Console.WriteLine($"Waiting for moviment: {game.ActualPlayer}");
+                        Screen.PrintMatch(game);
 
                         Console.WriteLine();
                         Console.Write("Origin: ");
@@ -44,6 +42,8 @@ namespace Chess_Console
                     }
                 }
 
+                Console.Clear();
+                Screen.PrintMatch(game);
             }
             catch (BoardException e)
             {
